@@ -6,8 +6,19 @@ services:
     ports:
       - 5433:5432
     volumes:
-      - ~/apps/postgres:/var/lib/postgresql/jbpm_test/data
+      - jbpm-data:/var/lib/postgresql/jbpm_test/data
     environment:
       - POSTGRES_PASSWORD=postgresql
       - POSTGRES_USER=postgresql
       - POSTGRES_DB=jbpm_test
+  jbmp-app:
+    image: jboss/jbpm-server-full
+    ports:
+      - 9980:8080
+      - 8001:8001
+    links:
+      - postgres
+
+volumes:
+  jbpm-data:
+
