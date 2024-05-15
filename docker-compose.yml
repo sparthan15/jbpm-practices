@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5433:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/jbpm_test/data
+    environment:
+      - POSTGRES_PASSWORD=postgresql
+      - POSTGRES_USER=postgresql
+      - POSTGRES_DB=jbpm_test
