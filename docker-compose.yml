@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:14-alpine
     ports:
-      - 5433:5432
+      - "5433:5432"
     volumes:
       - jbpm-data:/var/lib/postgresql/jbpm_test/data
     environment:
@@ -14,8 +14,10 @@ services:
   jbmp-app:
     image: jboss/jbpm-server-full
     ports:
-      - 9980:8080
-      - 8001:8001
+      - "9980:8080"
+      - "8001:8001"
+    depends_on:
+      - postgres
     links:
       - postgres
 
