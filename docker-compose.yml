@@ -14,7 +14,7 @@ services:
   jbmp-server-test:
     image: jboss/jbpm-server-full
     ports:
-      - "9980:8080"
+      - "8080:8080"
       - "8001:8001"
     volumes:
       - ./postgresql_files/standalone.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
