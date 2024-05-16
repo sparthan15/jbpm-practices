@@ -11,11 +11,15 @@ services:
       - POSTGRES_PASSWORD=postgresql
       - POSTGRES_USER=postgresql
       - POSTGRES_DB=jbpm_test
-  jbmp-app:
+  jbmp-server-test:
     image: jboss/jbpm-server-full
     ports:
       - "9980:8080"
       - "8001:8001"
+    volumes:
+      - ./postgresql_files/standalone.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
+      - ./postgresql_files/postgresql-42.7.3.jar:/opt/jboss/wildfly/modules/org/postgresql/main/postgresql-42.7.3.jar
+      - ./postgresql_files/module.xml:/opt/jboss/wildfly/modules/org/postgresql/main/module.xml
     depends_on:
       - postgres
     links:
