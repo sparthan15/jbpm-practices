@@ -11,7 +11,7 @@ docker container rm jbpm-server-full
 ```
 Run the container
 ```
-docker run -p9980:8080 -p8001:8001 --name jbpm-server-full jboss/jbpm-server-full:latest
+docker run -8080:8080 -p8001:8001 --name jbpm-server-full jboss/jbpm-server-full:latest
 ```
 
 ## Cloning a project
