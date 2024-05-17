@@ -2,29 +2,37 @@ version: '3.9'
 
 services:
   postgres:
-    image: postgres:14-alpine
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
     ports:
-      - "5433:5432"
+      - 5432:5432
     volumes:
-      - jbpm-data:/var/lib/postgresql/jbpm_test/data
+    - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=postgresql
-      - POSTGRES_USER=postgresql
-      - POSTGRES_DB=jbpm_test
-  jbmp-server-test:
+      POSTGRES_PASSWORD: jbpm
+      POSTGRES_USER: jbpm
+      POSTGRES_DB: jbpm
+  
+  jbpm:
     image: jboss/jbpm-server-full
+    environment:
+      JBPM_DB_DRIVER: postgres
+      JBPM_DB_HOST: postgres
     ports:
-      - "8080:8080"
-      - "8001:8001"
-    volumes:
-      - ./postgresql_files/standalone.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
-      - ./postgresql_files/postgresql-42.7.3.jar:/opt/jboss/wildfly/modules/org/postgresql/main/postgresql-42.7.3.jar
-      - ./postgresql_files/module.xml:/opt/jboss/wildfly/modules/org/postgresql/main/module.xml
+    - 8080:8080
+    - 8001:8001
     depends_on:
-      - postgres
-    links:
-      - postgres
+    - postgres
 
 volumes:
-  jbpm-data:
+  postgres_data:
+    driver: local
 
