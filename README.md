@@ -23,3 +23,32 @@ docker-compose up -d
 ```
 ## Cloning a project
 You are able to clone projects, by running 
+
+## Adding a datasource for persisting variables in different DB
+You need to add a new xa-datasource to the standalone.xml 
+```
+<xa-datasource jndi-name="java:jboss/datasources/MatriculaDS" pool-name="jBPMXADS">
+                    <xa-datasource-property name="ServerName">
+                        postgres
+                    </xa-datasource-property>
+                    <xa-datasource-property name="PortNumber">
+                        5432
+                    </xa-datasource-property>
+                    <xa-datasource-property name="DatabaseName">
+                        proc_escolares_matricula
+                    </xa-datasource-property>
+                    <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+                    <driver>postgres</driver>
+                    <security>
+                        <user-name>jbpm</user-name>
+                        <password>jbpm</password>
+                    </security>
+                    <validation>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
+                        <validate-on-match>true</validate-on-match>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>120000</background-validation-millis>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
+                    </validation>
+                </xa-datasource>
+```

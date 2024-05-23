@@ -7,18 +7,15 @@ services:
     # set shared memory limit when using docker-compose
     shm_size: 128mb
     # or set shared memory limit when deploy via swarm stack
-    volumes:
-      - postgres_data:/var/lib/postgresql/jbpm1/data
-      - type: tmpfs
-        target: /dev/shm
-        tmpfs:
-          size: 134217728 # 128*2^20 bytes = 128Mb
-      #- ./standalone-postgresql.xml:/opt/jboss/wildfly/standalone/configuration/standalone.xml
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
     ports:
       - 5432:5432
-    
-     
-#DROP SCHEMA public CASCADE;
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: jbpm
       POSTGRES_USER: jbpm
