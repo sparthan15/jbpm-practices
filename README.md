@@ -1,7 +1,7 @@
 ## JBPM with docker
 https://www.jbpm.org/learn/gettingStartedUsingDocker.html
 ## how to run
-We could use postgresql for persistence, so there is a standalont-postgresql which has the config for that. change the docker-compose.yml accordingly.
+We could use postgresql for persistence, so there is a standalone-postgresql which has the config for that. change the docker-compose.yml accordingly.
 run 
 ```
 docker-compose up
